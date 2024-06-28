@@ -1,0 +1,268 @@
+// Variáveis
+$black: #000;
+$white: #fff;
+$blue-dark: #25134f;
+$blue-max-dark: #13072e;
+
+// Mixins
+@mixin flex($flow: row, $aling: stretch, $justify: start, $gap: 0) {
+  display: flex;
+  flex-flow: $flow;
+  align-items: $aling;
+  justify-content: $justify;
+  gap: $gap;
+}
+
+// Função
+
+@function calcularTamanhoMinimo($espaco, $gap, $itens) {
+  $valor: ($espaco - $gap) / $itens;
+  @return $valor;
+}
+
+// Media Query
+@mixin respond($tamanho) {
+  @if $tamanho == big-max {
+    @media (max-width: 82.25em) {
+      @content;
+    }
+  } @else if $tamanho == big {
+    @media (max-width: 70.125em) {
+      @content;
+    }
+  } @else if $tamanho == medium {
+    @media (max-width: 62.44em) {
+      @content;
+    }
+  } @else if $tamanho == small {
+    @media (max-width: 47.94em) {
+      @content;
+    }
+  } @else if $tamanho == small-extra {
+    @media (max-width: 30.94em) {
+      @content;
+    }
+  }
+}
+
+// Padrão
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+
+  @include respond(big-max) {
+    font-size: 56.25%;
+  }
+
+  @include respond(big) {
+    font-size: 50%;
+  }
+
+  @include respond(medium) {
+    font-size: 43.75%;
+  }
+}
+
+body {
+  font-family: "Montsserat", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1.2;
+  color: $white;
+  background-color: $blue-dark;
+}
+
+// Header
+.cabecalho {
+  @include flex($aling: center, $justify: space-between);
+  padding: 3.9rem 4.88rem;
+
+  @include respond(small) {
+    padding: 4.88rem 2.5rem;
+  }
+
+  @include respond(small-extra) {
+    @include flex($flow: wrap, $justify: center, $gap: 4.88rem);
+  }
+
+  &__titulo {
+    font-size: 3.9rem;
+    transition: transform 0.6s ease-in;
+
+    &:hover {
+      transform: translateX(10rem);
+    }
+  }
+
+  &__lista {
+    @include flex($aling: center, $gap: 3.12rem);
+
+    @include respond(small) {
+      @include flex($aling: center, $gap: 2.5rem);
+    }
+  }
+
+  &__item-lista {
+    list-style: none;
+    font-size: 1.92rem;
+    font-weight: 700;
+  }
+
+  &__link:link,
+  &__link:visited {
+    text-decoration: none;
+    color: $white;
+    transition: color 0.4s ease-in;
+  }
+
+  &__link:hover,
+  &__link:active {
+    color: darken($blue-dark, 10%);
+  }
+
+  &__btn {
+    @include flex($aling: center, $gap: 1.6rem);
+    text-decoration: none;
+    color: $black;
+    font-size: 1.92rem;
+    padding: 1.02rem 2.5rem;
+    border-radius: 3rem;
+    background-color: $white;
+    transition: all 0.4s ease-in;
+
+    @include respond(small) {
+      @include flex($gap: 1.02rem);
+    }
+
+    &::after {
+      content: "\2192";
+      font-size: 2.3rem;
+
+      @include respond(small) {
+        transform: translateY(-15%);
+      }
+    }
+
+    &:hover {
+      transform: translateX(-2rem);
+    }
+  }
+}
+
+// Main
+.main {
+  @include flex($aling: center, $justify: center);
+
+  &__secao-card {
+    @include flex($aling: center, $gap: 2.5rem);
+    max-width: 120rem;
+
+    @include respond(big-max) {
+      max-width: 82.06vw;
+    }
+
+    @include respond(small) {
+      overflow: hidden;
+    }
+  }
+
+  &__card {
+    @include flex(column, $gap: 2.3rem);
+    min-width: calc(calc(100% - 2.5rem) / 3);
+    padding: 3.9rem 3.12rem;
+    border-radius: 2rem;
+    background-color: $blue-max-dark;
+    transition: box-shadow 0.6s ease-in;
+
+    @include respond(big-max) {
+      padding: 3.12rem;
+    }
+
+    @include respond(small) {
+      min-width: calc(calc(100% - 2.5rem) / 2);
+    }
+
+    @include respond(small-extra) {
+      min-width: calc(calc(100% - 2.5rem) / 1);
+    }
+
+    &:hover {
+      box-shadow: 0.5rem 0.5rem 0.8rem $black;
+    }
+  }
+
+  &__caixa-cabecalho {
+    @include flex(column, $gap: 1.6rem);
+  }
+
+  &__caixa-titulo {
+    @include flex(column, $gap: 1.28rem);
+  }
+
+  &__txt {
+    font-size: 2.3rem;
+  }
+
+  &__subtitulo {
+    font-size: 3.32rem;
+    max-width: 27rem;
+  }
+
+  &__txt-responsivo {
+    @include respond(medium) {
+      letter-spacing: -1px;
+    }
+
+    @include respond(small-extra) {
+      letter-spacing: 1px;
+    }
+  }
+
+  &__lista {
+    @include flex(column, $gap: 1.6rem);
+  }
+
+  &__item-lista {
+    @include flex($aling: center, $gap: 1.28rem);
+    list-style: none;
+    font-weight: 600;
+
+    &::before {
+      content: "\2713";
+    }
+  }
+
+  &__container-btn {
+    @include flex($aling: center, $justify: space-around, $gap: 1.6rem);
+    background-color: $white;
+    align-self: center;
+    border-radius: 3.12rem;
+    width: 80%;
+    padding: 0.65rem 0.82rem;
+
+    @include respond(medium) {
+      width: 100%;
+    }
+  }
+
+  &__btn {
+    text-decoration: none;
+    color: $black;
+    font-size: 1.92rem;
+  }
+
+  &__seta {
+    @include flex($aling: center, $justify: center);
+    color: $white;
+    font-size: 2.3rem;
+    background-color: $blue-dark;
+    width: 4rem;
+    height: 4rem;
+    padding: 1.28rem 1.6rem;
+    border-radius: 50%;
+  }
+}

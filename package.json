@@ -1,0 +1,24 @@
+{
+  "name": "card-preco",
+  "version": "1.0.0",
+  "description": "Projeto card-preço",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "sass ./sass/main.scss css/style.css -w",
+    "compile:sass": "sass sass/main.scss css/style.comp.css",
+    "prefix:css": "postcss --use autoprefixer -b 'last 10 versions' css/style.comp.css -0 ./css/style.prefix.css",
+    "compress:css": "sass css/style.prefix.css css/style.css --style compressed",
+    "build:css": "npm-run-all compile:sass prefix:css compress:css"
+  },
+  "author": "Samuel Johnny da silva pires",
+  "license": "ISC",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.77.3"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0"
+  }
+}
